@@ -22,7 +22,7 @@ class userDao {
      */
     public function get($userId) {
         $sql = "SELECT *
-                FROM user
+                FROM users
                 WHERE userId = '$userId'";
         $result = $this->_db->query($sql);
         if ($donnees = $result->fetch_assoc()) {  
@@ -35,7 +35,7 @@ class userDao {
      */
     public function userExist($userId, $userPwd) {
         $sql = "SELECT userId
-                FROM user
+                FROM users
                 WHERE userId = '$userId'
                 AND userPwd = '$userPwd'";
         $result = $this->_db->query($sql);
@@ -47,7 +47,7 @@ class userDao {
      */
     public function idExist($userId) {
         $sql = "SELECT userId
-                FROM user
+                FROM users
                 WHERE userId = '$userId'";
         $result = $this->_db->query($sql);
         return ($result && $result->num_rows > 0);
@@ -59,7 +59,7 @@ class userDao {
     public function getList() {
         $users = [];
         $sql = "SELECT *
-                FROM user";
+                FROM users";
         $result = $this->_db->query($sql);
         while ($donnees = $result->fetch_assoc()) {
             $users[] = new user($donnees);
@@ -71,7 +71,7 @@ class userDao {
      * Ajoute un nouvel utilisateur — vulnérable
      */
     public function add($user) {
-        $sql = "INSERT INTO user(userId, userPwd)
+        $sql = "INSERT INTO users(userId, userPwd)
                 VALUES ('".$user->getUserId()."', '".$user->getUserPwd()."')";
         return $this->_db->query($sql);
     }
@@ -80,7 +80,7 @@ class userDao {
      * Supprime un utilisateur — vulnérable
      */
     public function delete($user) {
-        $sql = "DELETE FROM user WHERE userId = '".$user->getUserId()."'";
+        $sql = "DELETE FROM users WHERE userId = '".$user->getUserId()."'";
         return $this->_db->query($sql);
     }
     
@@ -88,7 +88,7 @@ class userDao {
      * Met à jour un utilisateur — vulnérable
      */
     public function update($userUpdate) {
-        $sql = "UPDATE user 
+        $sql = "UPDATE users
                 SET userPwd = '".$userUpdate->getUserPwd()."'
                 WHERE userId = '".$userUpdate->getUserId()."'";
         return $this->_db->query($sql);

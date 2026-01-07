@@ -19,7 +19,7 @@ class userDao {
 	 */
     public function userExist($userId, $userPwd) {
 
-		$req = "SELECT userId FROM user WHERE userId = '$userId' and userPwd = '$userPwd'";
+		$req = "SELECT userId FROM users WHERE userId = '$userId' and userPwd = '$userPwd'";
 		$stmt = $this->_db->query($req);
 
 		if ($donnees = $stmt->fetch()) {  
@@ -33,7 +33,7 @@ class userDao {
 	 * Recherche de l'existance d'un id
 	 */
     public function idExist($userId) {
-		$req = "SELECT userId FROM user WHERE userId = '$userId'";
+		$req = "SELECT userId FROM users WHERE userId = '$userId'";
 		$stmt = $this->_db->query($req);
 
 		if ($donnees = $stmt->fetch()) {  
@@ -50,7 +50,7 @@ class userDao {
     public function getList() {
        
         $rqt = $this->_db->prepare('SELECT *
-		                           FROM user');
+		                           FROM users');
         $rqt->execute();
 	
         while ($donnees = $rqt->fetch()) {
@@ -66,7 +66,7 @@ class userDao {
 	 */
    public function add($user) {
   
-		$rqt = $this->_db->prepare('INSERT INTO user(userId, userPwd)
+		$rqt = $this->_db->prepare('INSERT INTO users(userId, userPwd)
 									VALUES(?,?)');
 		$rqt->bindValue(1, $user->getUserId());
 		$rqt->bindValue(2, $user->getUserPwd());
