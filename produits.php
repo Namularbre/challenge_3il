@@ -19,6 +19,9 @@ session_start();
 	?>
 	
 	<main id="container">
+        <?php
+            require_once("controleur/initFormListeProduits.php");
+        ?>
 	</main>
 
 	<!--*************** PIED DE PAGE ***************-->

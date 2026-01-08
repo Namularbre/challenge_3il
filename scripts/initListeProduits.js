@@ -36,7 +36,7 @@ xhr.onreadystatechange = function() {
 };
 
 xhr.open("GET", "controleur/initFormListeProduits.php", true);
-xhr.send(null);
+//xhr.send(null);
 
 
 });

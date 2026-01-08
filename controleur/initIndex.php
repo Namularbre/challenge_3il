@@ -10,7 +10,7 @@
             $description .= "<li class='main-item'><p class='titre'>".$resultat->getTitre()."</p></li>";
         }
         if($resultat->getDescription()!='' && $resultat->getImg() !=''){
-            $description .= "<li class ='main-item'><ul class ='sub-list'>";
+            $description .= "<li class ='main-item'><ul class='sub-list'>";
 
             $description .= "<li class='sub-item'><p class='texte'>".$resultat->getDescription()."</p></li>";
 
@@ -30,4 +30,3 @@
         echo $description;
     }
 
-?>

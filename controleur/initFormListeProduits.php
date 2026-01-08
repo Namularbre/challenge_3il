@@ -1,15 +1,19 @@
 ﻿<?php
-session_start();
-require("../metier/Produit.php");
-require("../Dao/ProduitDao.php");
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+define('BASE_PATH', __DIR__);
+
+require_once(__DIR__ . "/metier/Produit.php");
+require_once(__DIR__ . "/Dao/ProduitDao.php");
 
 
 // Création du manager permettant les actions en BDD
 $produitManager = new ProduitDao();
 
 $produits = $produitManager->getList();
-
-
 
 for ($i = 0; $i < count($produits); $i++) {
 	
@@ -21,7 +25,3 @@ for ($i = 0; $i < count($produits); $i++) {
 	$produit .= "</ul></li></ul>";
 	echo $produit;
 }
-
-
-
-?>

@@ -1,0 +1,249 @@
+/* ========================
+   VARIABLES GLOBALES
+   ======================== */
+:root {
+    /* Couleurs principales */
+    --primary-color: #54b454;
+    --primary-hover: #45a049;
+    --secondary-color: #00802b;
+    --text-color: #303030;
+    --text-light: #666;
+    --bg-light: #fff;
+    --bg-gray: #f8f8f8;
+    --border-color: #ccc;
+    --shadow-color: rgba(0,0,0,0.47);
+
+    /* Tailles et spacing */
+    --border-radius: 4px;
+    /* Margin et padding en em */
+    --padding-default: 0.5em;
+    --padding-label: 0.75em;
+    --margin-small: 0.3125em;
+    --margin-medium: 0.625em;
+    --margin-large: 1.25em;
+
+    /* Fonts */
+    --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    --font-heading: Verdana, Geneva, sans-serif;
+}
+
+/* ========================
+   GLOBAL RESET
+   ======================== */
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /**/
+    font-family: var(--font-family-sans), sans-serif;
+    color: var(--text-color);
+}
+
+/* ========================
+   FORMULAIRES
+   ======================== */
+input[type=text],
+input[type=email],
+select,
+textarea {
+    width: 100%;
+    padding: var(--padding-default);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+    resize: vertical;
+    color: var(--text-color);
+}
+
+input[type=submit],
+input[type=button],
+.forms .button,
+.contactContainer .leftContainer .subForm {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+input[type=submit]:hover,
+.forms .button:hover,
+.contactContainer .leftContainer .subForm:hover {
+    background-color: var(--primary-hover);
+}
+
+/* Labels */
+label {
+    padding: var(--padding-label) 0;
+    display: inline-block;
+    font-weight: normal;
+}
+
+/* ========================
+   CONTAINERS
+   ======================== */
+.containerAjoutProduit,
+.containerModifProduit,
+.containerSuppProduit,
+.containerContenuAccueil,
+.contactContainer,
+.forms,
+.carousel {
+    background-color: var(--bg-light);
+    border-radius: 5px;
+    padding: var(--margin-medium);
+    box-shadow: 0 0 3px 1px var(--shadow-color);
+    box-sizing: border-box;
+    margin: var(--margin-medium) auto;
+}
+
+/* Headings */
+h1 {
+    font-family: var(--font-heading);
+    font-weight: normal;
+    font-size: 28px;
+    text-align: center;
+    color: var(--primary-color);
+    padding-bottom: 4%;
+}
+
+h2 {
+    color: var(--primary-color);
+    font-size: 18px;
+    padding-top: 7%;
+    padding-left: 7%;
+}
+
+h3 {
+    margin-top: 6%;
+    margin-left: 4%;
+}
+
+/* ========================
+   GRID & LAYOUT
+   ======================== */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+[class^="col-"] {
+    float: left;
+    margin-top: 6px;
+    box-sizing: border-box;
+}
+
+.col-25 { width: 25%; }
+.col-40 { width: 48%; margin: 10px; }
+.col-75 { width: 75%; }
+.col-90 { width: 95%; float: none; }
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .col-25, .col-75 {
+        width: 100%;
+        margin-top: 0;
+    }
+
+    #btnAjoutProduit, #btnModifProduit, #btnSuppProduit {
+        width: 100%;
+        margin-top: 8%;
+    }
+}
+
+/* ========================
+   CONTACT
+   ======================== */
+.contactContainer .leftContainer .nameEmail input,
+.contactContainer .leftContainer .message textarea {
+    width: 100%;
+    margin-top: 1%;
+}
+
+.contactContainer .leftContainer .message textarea:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(34, 191, 136, 1);
+    border: 1px solid rgba(34, 191, 136, 1);
+}
+
+/* ========================
+   NAVIGATION
+   ======================== */
+nav {
+    width: 100%;
+    background-color: var(--primary-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-item a {
+    display: inline-block;
+    padding: 25px 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item:hover {
+    background-color: white;
+}
+
+.nav-item:hover a {
+    color: var(--primary-color);
+}
+
+/* ========================
+   FOOTER
+   ======================== */
+footer {
+    width: 100%;
+    background-color: #4e4e4e;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ========================
+   CAROUSEL
+   ======================== */
+.carousel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 495px;
+}
+
+/* Flèches */
+.carousel .slider .leftArrow,
+.carousel .slider .rightArrow {
+    width: 50px;
+    height: 72px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #00000036;
+    transition: background 0.5s;
+    cursor: pointer;
+}
+
+.carousel .slider .leftArrow:hover,
+.carousel .slider .rightArrow:hover {
+    background-color: #000000a8;
+}
