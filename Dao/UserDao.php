@@ -1,4 +1,7 @@
 ﻿<?php
+
+require_once ('../metier/DBConnector.php');
+
 /**
  * Gestionnaire de la classe user
  */
@@ -10,14 +13,14 @@ class UserDao {
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct(PDO $db) {
-        $this->setDb($db);
+	public function __construct() {
+        $this->_db = DBConnector::getInstance();
     }
      
 	/**
 	 * Recherche d'un utilisateur en ce basant sur le couple ident/mdp
 	 */
-    public function userExist(int $userId, string $userPwd) {
+    public function userExist(int $userId, string $userPwd): bool {
 
 		$req = "SELECT userId FROM users WHERE userId = '$userId' and userPwd = '$userPwd'";
 		$stmt = $this->_db->query($req);
@@ -32,7 +35,7 @@ class UserDao {
 	/**
 	 * Recherche de l'existance d'un id
 	 */
-    public function idExist($userId) {
+    public function idExist(int $userId): bool {
 		$req = "SELECT userId FROM users WHERE userId = '$userId'";
 		$stmt = $this->_db->query($req);
 
@@ -47,15 +50,14 @@ class UserDao {
    /** 
     * Récupération de tous les users de la BDD
     */
-    public function getList() {
-       
+    public function getList(): array {
+       $users = [];
         $rqt = $this->_db->prepare('SELECT *
 		                           FROM users');
         $rqt->execute();
 	
         while ($donnees = $rqt->fetch()) {
-            $users[$compteur] = new user($donnees);
-		    $compteur ++;
+            array_push($users, new user($donnees));
         }
         return $users;
     }
@@ -66,7 +68,7 @@ class UserDao {
 	 */
    public function add($user) {
   
-		$rqt = $this->_db->prepare('INSERT INTO users(userId, userPwd)
+		$rqt = $this->_db->prepare('INSERT INTO users(id, password)
 									VALUES(?,?)');
 		$rqt->bindValue(1, $user->getUserId());
 		$rqt->bindValue(2, $user->getUserPwd());

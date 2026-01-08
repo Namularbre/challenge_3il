@@ -1,4 +1,6 @@
 ﻿<?php
+
+require_once ('../metier/DBConnector.php');
 /**
  * Gestionnaire de la classe Produit
  */
@@ -10,8 +12,8 @@ class ProduitDao {
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct(PDO $db) {
-        $this->setDb($db);
+	public function __construct() {
+        $this->_db = DBConnector::getInstance();
     }
      
 	/**
@@ -51,15 +53,13 @@ class ProduitDao {
     */
     public function getList(): array {
         $produits = [];
-	    $compteur = 0;
         $rqt = $this->_db->prepare('SELECT id, titre, description, img
 		                           FROM produits
 								   ORDER BY titre');
         $rqt->execute();
 
         while ($donnees = $rqt->fetch()) {
-            $produits[$compteur] = new Produit($donnees);
-		    $compteur ++;
+            array_push($produits, new Produit($donnees));
         }
         return $produits;
     }

@@ -1,25 +1,29 @@
 ﻿<?php
+
+
+require_once ('../metier/DBConnector.php');
+
 /**
  * Gestionnaire de la classe Contenu
  */
 class ContenuDao {
 	
 	/** Instance de PDO pour se connecter à la BD */
-	private $_db;
+	private PDO $_db;
 	
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct($db) {
-        $this->setDb($db);
+	public function __construct() {
+        $this->_db = DBConnector::getInstance();
     }
-     
+
 	/**
 	 * Récupération d'un contenu en précisant son titre 
 	 * @return $contenu le contenu choisie
 	 */
     public function get($titre) {
-        $rqt= $this->_db->prepare("SELECT id, titre, descr, img
+        $rqt= $this->_db->prepare("SELECT id, titre, description, img
 		                           FROM home
 								   WHERE titre= ?");	
 		$rqt->bindParam(1, $titre);	
@@ -51,15 +55,13 @@ class ContenuDao {
     */
     public function getList() {
         $contenus = [];
-	    $compteur = 0;
-        $rqt = $this->_db->prepare('SELECT id, titre, descr, img
+        $rqt = $this->_db->prepare('SELECT id, titre, description, img
 		                           FROM home
 								   ORDER BY titre');
         $rqt->execute();
 
         while ($donnees = $rqt->fetch()) {
-            $contenus[$compteur] = new Produit($donnees);
-		    $compteur ++;
+            array_push($contenus, new Produit($donnees));
         }
         return $contenus;
     }
@@ -71,7 +73,7 @@ class ContenuDao {
 	* @param $contenu le contenu à ajouter
 	*/
     public function add($contenu) {
-        $rqt = $this->_db->prepare('INSERT INTO home(titre, descr, img)
+        $rqt = $this->_db->prepare('INSERT INTO home(titre, description, img)
 							         VALUES(?,?,?)');
 
 		$rqt->bindValue(1, $contenu->getTitre());
@@ -96,7 +98,7 @@ class ContenuDao {
 	 */
 	public function update($contenu) {
         $rqt = $this->_db->prepare('UPDATE home 
-	                          SET titre = ?, descr = ?, img = ?
+	                          SET titre = ?, description = ?, img = ?
                     	      WHERE id = ?');
 
 		$rqt->bindValue(1, $contenu->getTitre());
@@ -106,10 +108,6 @@ class ContenuDao {
 
 
 		return $rqt->execute();
-    }
-  
-     public function setDb(PDO $db) {
-        $this->_db = $db;
     }
 	
 }

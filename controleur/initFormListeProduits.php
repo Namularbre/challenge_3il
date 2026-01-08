@@ -1,16 +1,11 @@
 ﻿<?php
 session_start();
-require("../metier/DB_connector.php");
 require("../metier/Produit.php");
 require("../Dao/ProduitDao.php");
 
-// ouverture de la connexion BDD
-$cnx = new DB_connector();
-$jeton = $cnx->openConnexion();
-
 
 // Création du manager permettant les actions en BDD
-$produitManager = new ProduitDao($jeton);
+$produitManager = new ProduitDao();
 
 $produits = $produitManager->getList();
 

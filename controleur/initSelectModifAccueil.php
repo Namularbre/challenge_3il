@@ -1,6 +1,6 @@
 ﻿<?php
 session_start();
-require("../metier/DB_connector.php");
+require("../metier/DBConnector.php");
 require("../metier/Produit.php");
 require("../Dao/ContenuDao.php");
 

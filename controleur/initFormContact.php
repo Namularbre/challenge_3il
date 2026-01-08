@@ -1,17 +1,12 @@
 ﻿<?php
 session_start();
-require("../metier/DB_connector.php");
 require("../metier/User.php");
 require("../Dao/UserDao.php");
 
 // On vérifie que la variable de session est existante
 if (isset($_SESSION['id'])) {
-	// On récupère les infos de l'utilisateur connecté
-	$cnx = new DB_Connector();
-	$jeton = $cnx->openConnexion();
-
 	// Création du user
-	$userManager = new UserDao($jeton);
+	$userManager = new UserDao();
 	$util = $userManager->get($_SESSION['id']);
 
 	echo '

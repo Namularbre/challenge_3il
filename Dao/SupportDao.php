@@ -1,4 +1,7 @@
 ﻿<?php
+
+require_once ('../metier/DBConnector.php');
+
 /**
  * Gestionnaire de la classe Support
  */
@@ -10,8 +13,8 @@ class SupportDao {
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct($db) {
-        $this->setDb($db);
+	public function __construct() {
+        $this->_db = DBConnector::getInstance();
     }
      
 	/**
@@ -20,9 +23,9 @@ class SupportDao {
 	 */
     public function get(int $id) {
 		$tab = array(); 
-        $rqt= $this->_db->prepare("SELECT id, nom, email, sub, msg
+        $rqt= $this->_db->prepare("SELECT id, nom, email, sub, message
 		                           FROM Support
-								   WHERE suId= ?");	
+								   WHERE id= ?");
 		$rqt->bindParam(1, $id);
 		$rqt->execute();
 
@@ -37,14 +40,12 @@ class SupportDao {
     */
     public function getList() {
         $supports = [];
-	    $compteur = 0;
-        $rqt = $this->_db->prepare('SELECT id, nom, email, sub, msg
+        $rqt = $this->_db->prepare('SELECT id, nom, email, sub, message
 		                            FROM Support');
         $rqt->execute();
 
         while ($donnees = $rqt->fetch()) {
-            $supports[$compteur] = new Support($donnees);
-		    $compteur ++;
+            array_push($supports, new Support($donnees));
         }
         return $supports;
     }
@@ -55,7 +56,7 @@ class SupportDao {
 	* Ajout d'un nouveau message
 	*/
     public function add(Support $support) {
-        $rqt = $this->_db->prepare('INSERT INTO Support(id, nom, email, sub, msg)
+        $rqt = $this->_db->prepare('INSERT INTO Support(id, nom, email, sub, message)
 							         VALUES(?,?,?,?)');
 
 		$rqt->bindValue(1, $support->getNom());
@@ -91,13 +92,6 @@ class SupportDao {
 		$rqt->bindValue(5, $support->getId());
 
 		return $rqt->execute();
-    }
-  
-    /**
-	 * Modifieur sur l'instance pdo de connexion 
-	 */
-     public function setDb(PDO $db) {
-        $this->_db = $db;
     }
 	
 }

@@ -1,52 +1,33 @@
 <?php
+    require_once ('./Dao/HomeDao.php');
 
-	/* Connexion à la bdd */
-	$con = mysqli_connect("localhost", "root", "", "scierie");
+    $dao = new HomeDao();
+    $resultats = $dao->getHome();
 
-	/* Gestion des erreurs de connexion */
-	if (mysqli_connect_errno()){
-		echo "Erreur de connexion: " . mysqli_connect_error();
-	}
+    foreach ($resultats as $resultat) {
+        $description = "<ul class='main-list'>";
+        if($resultat->getTitre() !='') {
+            $description .= "<li class='main-item'><p class='titre'>".$resultat->getTitre()."</p></li>";
+        }
+        if($resultat->getDescription()!='' && $resultat->getImg() !=''){
+            $description .= "<li class ='main-item'><ul class ='sub-list'>";
 
-	mysqli_set_charset($con,"utf8");
+            $description .= "<li class='sub-item'><p class='texte'>".$resultat->getDescription()."</p></li>";
 
-	/* Requête SQL */
-	$sql = "SELECT home.titre, home.description, home.img FROM home";
+            $description .= "<li class='sub-item'><img class='image' src='images/".$resultat->getImg()."'></li>";
 
-	/* Gestion des erreurs de requête sql */
-	if (!mysqli_query($con, $sql)){
-		echo "Création échouée" . mysqli_error($con);
-	}
+            $description .= "</ul></li>";
 
-	$requete = $con->query($sql);
-
-	while ($resultat = mysqli_fetch_array($requete))
-    {
-		$description = "<ul class='main-list'>";
-		if($resultat['titre']!='') {
-			$description .= "<li class='main-item'><p class='titre'>".$resultat['titre']."</p></li>";
-		}
-		if($resultat['description']!='' && $resultat['img']!=''){
-			$description .= "<li class ='main-item'><ul class ='sub-list'>";
-
-			$description .= "<li class='sub-item'><p class='texte'>".$resultat['description']."</p></li>";
-
-			$description .= "<li class='sub-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			
-			$description .= "</ul></li>";
-		
-		}else{
-			if($resultat['description']!=''){
-				$description .= "<li class='main-item'><p class='texte'>".$resultat['description']."</p></li>";
-			}
-			if($resultat['img']!=''){
-				$description .= "<li class='main-item'><img class='image' src='images/".$resultat['img']."'></li>";
-			}
-		}
-		$description .="</ul>";
+        }else{
+            if($resultat->getDescription() !=''){
+                $description .= "<li class='main-item'><p class='texte'>".$resultat->getDescription()."</p></li>";
+            }
+            if($resultat->getImg()!=''){
+                $description .= "<li class='main-item'><img class='image' src='images/".$resultat->getImg()."'></li>";
+            }
+        }
+        $description .="</ul>";
         echo $description;
+    }
 
-	}
-
-	mysqli_close($con)
 ?>
