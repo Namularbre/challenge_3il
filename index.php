@@ -23,12 +23,12 @@ session_start();
 
 	<section>
 	<?php 
-		include"view/slider.php";
+		include "view/slider.php";
 	?>
 	</section>
 	<main>
 	<?php
-		//include"controleur/initIndex.php";
+	    include "controleur/initIndex.php";
 	?>
 	</main>
 
