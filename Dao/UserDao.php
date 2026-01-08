@@ -2,22 +2,22 @@
 /**
  * Gestionnaire de la classe user
  */
-class userDao {
+class UserDao {
 	
 	/** Instance de PDO pour se connecter à la BD */
-	private $_db;
+	private PDO $_db;
 	
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct($db) {
+	public function __construct(PDO $db) {
         $this->setDb($db);
     }
      
 	/**
 	 * Recherche d'un utilisateur en ce basant sur le couple ident/mdp
 	 */
-    public function userExist($userId, $userPwd) {
+    public function userExist(int $userId, string $userPwd) {
 
 		$req = "SELECT userId FROM users WHERE userId = '$userId' and userPwd = '$userPwd'";
 		$stmt = $this->_db->query($req);

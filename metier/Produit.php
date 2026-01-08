@@ -6,11 +6,11 @@
 class Produit {
 
    /** Id du produit */	
-   private $_id;
+   private int $_id;
    /** Titre du produit */	
-   private $_titre;
+   private string $_titre;
    /** le descriptif du produit */	
-   private $_descr;
+   private string $_description;
    /** L'image du produit */	
    private $_img;
 
@@ -58,12 +58,12 @@ class Produit {
 	     $this->_titre = $titre;
 	}
 	
-	public function getDescr() {
-	    return $this->_descr;
+	public function getDescription() {
+	    return $this->_description;
 	}
 
-	public function setDescr($descr) {
-	     $this->_descr = $descr;
+	public function setDescription($descr) {
+	     $this->_description = $descr;
 	}
 
 	public function getImg() {

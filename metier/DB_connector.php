@@ -1,8 +1,8 @@
 ﻿<?php
 class DB_Connector {
-    private static $connect = null;
+    private static ?PDO $connect = null;
 
-    public function openConnexion(){
+    public function openConnexion(): PDO {
 		
         if(!isset($connect)){
             
@@ -13,12 +13,11 @@ class DB_Connector {
                 die('connexion echouée : '.$ex->getMessage());
             }
         }
-        
-	
+    
         return $connect;
     }   
 
-    public function closeConnexion(){
+    public function closeConnexion(): void {
         
         if(isset($connect)){
             $connect = null;

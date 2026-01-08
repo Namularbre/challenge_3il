@@ -34,7 +34,7 @@ class ContenuDao {
 	 * Récupération d'un contenu en précisant son id
 	 */
     public function getById($id) {
-        $rqt= $this->_db->prepare("SELECT id, titre, descr, img
+        $rqt= $this->_db->prepare("SELECT id, titre, description, img
 		                           FROM home
 								   WHERE id= ?");	
 		$rqt->bindParam(1, $id);	

@@ -5,12 +5,12 @@
 class ProduitDao {
 	
 	/** Instance de PDO pour se connecter à la BD */
-	private $_db;
+	private PDO $_db;
 	
 	/**
 	 * Connexion à la BDD
 	 */
-	public function __construct($db) {
+	public function __construct(PDO $db) {
         $this->setDb($db);
     }
      
@@ -18,8 +18,8 @@ class ProduitDao {
 	 * Récupération d'un produit en précisant son titre 
 	 * @return $produit le produit choisie
 	 */
-    public function get($titre) {
-        $rqt= $this->_db->prepare("SELECT id, titre, descr, img
+    public function get(string $titre) {
+        $rqt= $this->_db->prepare("SELECT id, titre, description, img
 		                           FROM produits
 								   WHERE titre= ?");	
 		$rqt->bindParam(1, $titre);	
@@ -33,8 +33,8 @@ class ProduitDao {
 	/**
 	 * Récupération d'un produit en précisant son id
 	 */
-    public function getById($id) {
-        $rqt= $this->_db->prepare("SELECT id, titre, descr, img
+    public function getById(int $id) {
+        $rqt= $this->_db->prepare("SELECT id, titre, description, img
 		                           FROM produits
 								   WHERE id= ?");	
 		$rqt->bindParam(1, $id);	
@@ -49,10 +49,10 @@ class ProduitDao {
    /** 
     * Récupération de tous les produits de la bdd
     */
-    public function getList() {
+    public function getList(): array {
         $produits = [];
 	    $compteur = 0;
-        $rqt = $this->_db->prepare('SELECT id, titre, descr, img
+        $rqt = $this->_db->prepare('SELECT id, titre, description, img
 		                           FROM produits
 								   ORDER BY titre');
         $rqt->execute();
@@ -68,23 +68,23 @@ class ProduitDao {
  
    /**
 	* Ajout d'un nouveau produit
-	* @param $produit le produit à ajouter
+	* @param $produit Produit le produit à ajouter
 	*/
-    public function add($produit) {
-        $rqt = $this->_db->prepare('INSERT INTO produits(titre, descr, img)
+    public function add(Produit $produit) {
+        $rqt = $this->_db->prepare('INSERT INTO produits(titre, description, img)
 							         VALUES(?,?,?)');
 
 		$rqt->bindValue(1, $produit->getTitre());
-		$rqt->bindValue(2, $produit->getDescr());
+		$rqt->bindValue(2, $produit->getDescription());
 		$rqt->bindValue(3, $produit->getImg());
 		return $rqt->execute();
     }
 
     /**
 	 * Suppression d'un produit 
-	 * @param $produit le produit à supprimer
+	 * @param $produit Produit le produit à supprimer
 	 */
-    public function delete($produit) {
+    public function delete(Produit $produit) {
            $rqt = $this->_db->prepare('DELETE FROM produits WHERE titre = ?'); 
 		   $rqt->bindValue(1, $produit->getTitre());
 		   
@@ -94,13 +94,13 @@ class ProduitDao {
 	/**
 	 * Mise à jour des informations concernant un produit
 	 */
-	public function update($produit) {
+	public function update(Produit $produit) {
         $rqt = $this->_db->prepare('UPDATE produits 
-	                          SET titre = ?, descr = ?, img = ?
+	                          SET titre = ?, description = ?, img = ?
                     	      WHERE id = ?');
 
 		$rqt->bindValue(1, $produit->getTitre());
-		$rqt->bindValue(2, $produit->getDescr());
+		$rqt->bindValue(2, $produit->getDescription());
 		$rqt->bindValue(3, $produit->getImg());
 		$rqt->bindValue(4, $produit->getId());
 

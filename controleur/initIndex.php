@@ -11,7 +11,7 @@
 	mysqli_set_charset($con,"utf8");
 
 	/* Requête SQL */
-	$sql = "SELECT home.titre, home.descr, home.img FROM home";
+	$sql = "SELECT home.titre, home.description, home.img FROM home";
 
 	/* Gestion des erreurs de requête sql */
 	if (!mysqli_query($con, $sql)){
@@ -26,18 +26,18 @@
 		if($resultat['titre']!='') {
 			$description .= "<li class='main-item'><p class='titre'>".$resultat['titre']."</p></li>";
 		}
-		if($resultat['descr']!='' && $resultat['img']!=''){
+		if($resultat['description']!='' && $resultat['img']!=''){
 			$description .= "<li class ='main-item'><ul class ='sub-list'>";
 
-			$description .= "<li class='sub-item'><p class='texte'>".$resultat['descr']."</p></li>";
+			$description .= "<li class='sub-item'><p class='texte'>".$resultat['description']."</p></li>";
 
 			$description .= "<li class='sub-item'><img class='image' src='images/".$resultat['img']."'></li>";
 			
 			$description .= "</ul></li>";
 		
 		}else{
-			if($resultat['descr']!=''){
-				$description .= "<li class='main-item'><p class='texte'>".$resultat['descr']."</p></li>";
+			if($resultat['description']!=''){
+				$description .= "<li class='main-item'><p class='texte'>".$resultat['description']."</p></li>";
 			}
 			if($resultat['img']!=''){
 				$description .= "<li class='main-item'><img class='image' src='images/".$resultat['img']."'></li>";

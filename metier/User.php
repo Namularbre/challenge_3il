@@ -6,9 +6,9 @@
 class User {
 
    /** Id de l'utilisant permettant de l'identifier ce sera une adresse mail*/	
-   private $_userId;
+   private int $_userId;
    /** Mot de passe de l'utilisateur */	
-   private $_userPwd;
+   private string $_userPwd;
    /** Role du user admin ou utilisateur*/	
    private $_userDroits;
    /** nom du user */	

@@ -5,24 +5,24 @@
  */
 class Support {
 
-   private $_suId;
-   private $_suNom;
-   private $_suEmail;
-   private $_suSub;
-   private $_suMsg;
+   private int $_id;
+   private string $_nom;
+   private string $_email;
+   private string $_sub;
+   private string $_message;
 
 
-	public function __construct($tab) {
+	public function __construct(array $tab) {
 	   if (!empty($tab)) {
 		  $this->hydrate($tab);
-	    }	
+       }
 	}
 	
 	/**
 	 * Hydration de l'objet en lui fournissant les données correspondant 
 	 * à ses attributs
      */	 
-	private function hydrate($tab) {
+	private function hydrate(array $tab) {
 		
 		foreach ($tab as $key => $value) {
 
@@ -34,44 +34,44 @@ class Support {
        }
 	}
 
-	public function getSuId() {
-	    return $this->_suId;
+	public function getId() {
+	    return $this->_id;
 	}
 
-	public function setSuId($suId) {
-	     $this->_suId = $suId;
+	public function setId($suId) {
+	     $this->_id = $suId;
 	}
 
-	public function getSuNom() {
-	    return $this->_suNom;
+	public function getNom() {
+	    return $this->_nom;
 	}
 
-	public function setSuNom($suNom) {
-	     $this->_suNom = $suNom;
+	public function setNom($suNom) {
+	     $this->_nom = $suNom;
 	}
 
-	public function getSuEmail() {
-	    return $this->_suEmail;
+	public function getEmail() {
+	    return $this->_email;
 	}
 
-	public function setSuEmail($suEmail) {
-	     $this->_suEmail = $suEmail;
+	public function setEmail($suEmail) {
+	     $this->_email = $suEmail;
 	}
 
-	public function getSuSub() {
-	    return $this->_suSub;
+	public function getSub() {
+	    return $this->_sub;
 	}
 
-	public function setSuSub($suMsg) {
-	     $this->_suSub = $suMsg;
+	public function setSub($suMsg) {
+	     $this->_sub = $suMsg;
 	}
 
-	public function getSuMsg() {
-	    return $this->_suMsg;
+	public function getMessage() {
+	    return $this->_message;
 	}
 
-	public function setSuMsg($suMsg) {
-	     $this->_suMsg = $suMsg;
+	public function setMessage($suMsg) {
+	     $this->_message = $suMsg;
 	}
 	
 }   

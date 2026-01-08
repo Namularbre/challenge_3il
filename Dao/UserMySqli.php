@@ -2,15 +2,15 @@
 /**
  * Gestionnaire de la classe user (version MySQLi vulnérable)
  */
-class userDao {
+class UserDao {
     
     /** Instance MySQLi pour se connecter à la BD */
-    private $_db;
+    private MySQLi $_db;
     
     /**
      * Connexion à la BDD
      */
-    public function __construct($host, $user, $pass, $dbname) {
+    public function __construct(string $host, string $user, string $pass, string $dbname) {
         $this->_db = new mysqli($host, $user, $pass, $dbname);
         if ($this->_db->connect_error) {
             die("Erreur de connexion MySQLi : " . $this->_db->connect_error);
@@ -20,7 +20,7 @@ class userDao {
     /**
      * Récupération d'un user par son id (adresse mail) — vulnérable
      */
-    public function get($userId) {
+    public function get(int $userId) {
         $sql = "SELECT *
                 FROM users
                 WHERE userId = '$userId'";
@@ -33,11 +33,11 @@ class userDao {
     /**
      * Vérifie si un utilisateur existe (id + mdp) — vulnérable
      */
-    public function userExist($userId, $userPwd) {
-        $sql = "SELECT userId
+    public function userExist(int $userId, string $userPwd) {
+        $sql = "SELECT id
                 FROM users
-                WHERE userId = '$userId'
-                AND userPwd = '$userPwd'";
+                WHERE id = '$userId'
+                AND password = '$userPwd'";
         $result = $this->_db->query($sql);
         return ($result && $result->num_rows > 0);
     }
@@ -45,10 +45,10 @@ class userDao {
     /**
      * Vérifie si un id existe — vulnérable
      */
-    public function idExist($userId) {
-        $sql = "SELECT userId
+    public function idExist(int $userId) {
+        $sql = "SELECT id
                 FROM users
-                WHERE userId = '$userId'";
+                WHERE id = '$userId'";
         $result = $this->_db->query($sql);
         return ($result && $result->num_rows > 0);
     }
@@ -70,7 +70,7 @@ class userDao {
     /**
      * Ajoute un nouvel utilisateur — vulnérable
      */
-    public function add($user) {
+    public function add(User $user) {
         $sql = "INSERT INTO users(userId, userPwd)
                 VALUES ('".$user->getUserId()."', '".$user->getUserPwd()."')";
         return $this->_db->query($sql);
@@ -79,18 +79,18 @@ class userDao {
     /**
      * Supprime un utilisateur — vulnérable
      */
-    public function delete($user) {
-        $sql = "DELETE FROM users WHERE userId = '".$user->getUserId()."'";
+    public function delete(User $user) {
+        $sql = "DELETE FROM users WHERE id = '".$user->getUserId()."'";
         return $this->_db->query($sql);
     }
     
     /**
      * Met à jour un utilisateur — vulnérable
      */
-    public function update($userUpdate) {
+    public function update(User $userUpdate) {
         $sql = "UPDATE users
-                SET userPwd = '".$userUpdate->getUserPwd()."'
-                WHERE userId = '".$userUpdate->getUserId()."'";
+                SET password = '".$userUpdate->getUserPwd()."'
+                WHERE id = '".$userUpdate->getUserId()."'";
         return $this->_db->query($sql);
     }
 }

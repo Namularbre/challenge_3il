@@ -5,7 +5,7 @@
 class SupportDao {
 	
 	/** Instance de PDO pour se connecter à la BD */
-	private $_db;
+	private PDO $_db;
 	
 	/**
 	 * Connexion à la BDD
@@ -18,12 +18,12 @@ class SupportDao {
 	 * Récupération d'un message en fonction de son id
 
 	 */
-    public function get($suId) {
+    public function get(int $id) {
 		$tab = array(); 
-        $rqt= $this->_db->prepare("SELECT suId, suNom, suEmail, suSub, suMsg
+        $rqt= $this->_db->prepare("SELECT id, nom, email, sub, msg
 		                           FROM Support
 								   WHERE suId= ?");	
-		$rqt->bindParam(1, $suId);	
+		$rqt->bindParam(1, $id);
 		$rqt->execute();
 
 		if ($donnees = $rqt->fetch()) {  
@@ -38,7 +38,7 @@ class SupportDao {
     public function getList() {
         $supports = [];
 	    $compteur = 0;
-        $rqt = $this->_db->prepare('SELECT suId, suNom, suEmail, suSub, suMsg
+        $rqt = $this->_db->prepare('SELECT id, nom, email, sub, msg
 		                            FROM Support');
         $rqt->execute();
 
@@ -54,14 +54,14 @@ class SupportDao {
    /**
 	* Ajout d'un nouveau message
 	*/
-    public function add($support) {
-        $rqt = $this->_db->prepare('INSERT INTO Support(suNom, suEmail, suSub, suMsg)
+    public function add(Support $support) {
+        $rqt = $this->_db->prepare('INSERT INTO Support(id, nom, email, sub, msg)
 							         VALUES(?,?,?,?)');
 
-		$rqt->bindValue(1, $support->getSuNom());
-		$rqt->bindValue(2, $support->getSuEmail());
-		$rqt->bindValue(3, $support->getSuSub());
-		$rqt->bindValue(4, $support->getSuMsg());
+		$rqt->bindValue(1, $support->getNom());
+		$rqt->bindValue(2, $support->getEmail());
+		$rqt->bindValue(3, $support->getSub());
+		$rqt->bindValue(4, $support->getMessage());
 
 		return $rqt->execute();
     }
@@ -69,9 +69,9 @@ class SupportDao {
     /**
 	 * Suppression d'un message
 	 */
-    public function delete($support) {
-           $rqt = $this->_db->prepare('DELETE FROM Support WHERE suId = ?'); 
-		   $rqt->bindValue(1, $support->getSuId());
+    public function delete(Support $support) {
+           $rqt = $this->_db->prepare('DELETE FROM Support WHERE id = ?');
+		   $rqt->bindValue(1, $support->getId());
 		   
 		   return $rqt->execute(); 
     }
@@ -79,16 +79,16 @@ class SupportDao {
 	/**
 	 * Mise à jour d'un message 
 	 */
-	public function update($support) {
+	public function update(Support $support) {
         $rqt = $this->_db->prepare('UPDATE Support 
-	                          SET suNom = ?, suEmail = ?,suSub = ?, suMsg = ?
-                    	      WHERE suId = ?');
+	                          SET nom = ?, email = ?,sub = ?, message = ?
+                    	      WHERE id = ?');
 
-		$rqt->bindValue(1, $support->getSuNom());
-		$rqt->bindValue(2, $support->getSuEmail());
-		$rqt->bindValue(3, $support->getSuSub());
-		$rqt->bindValue(4, $support->getSuMsg());
-		$rqt->bindValue(5, $support->getSuId());
+		$rqt->bindValue(1, $support->getNom());
+		$rqt->bindValue(2, $support->getEmail());
+		$rqt->bindValue(3, $support->getSub());
+		$rqt->bindValue(4, $support->getMessage());
+		$rqt->bindValue(5, $support->getId());
 
 		return $rqt->execute();
     }
