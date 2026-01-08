@@ -18,7 +18,7 @@ if (!empty($produits)) {
         $html .= "<li class='main-item'><p class='titre'>" . htmlspecialchars($produit->getTitre()) . "</p></li>";
         $html .= "<li class='main-item'><ul class='sub-list'>";
         $html .= "<li class='sub-item'><p class='texte'>" . htmlspecialchars($produit->getDescription()) . "</p></li>";
-        $html .= "<li class='sub-item'><img class='image' src='images/" . htmlspecialchars($produit->getImg()) . "'></li>";
+        $html .= "<li class='sub-item'><img class='image' alt='" . htmlspecialchars($produit->getDescription()) ."' src='images/" . htmlspecialchars($produit->getImg()) . "'></li>";
         $html .= "</ul></li></ul>";
     }
 } else {

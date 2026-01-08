@@ -9,11 +9,7 @@
         <li class="footer-item">ADRESSE : Route de Rodez, 12220, MONTBAZENS </li>
         <li class="footer-item">NOUS SUIVRE
             <a href="https://www.facebook.com/Scierie-du-Fargal-613509152159633/" target="_blank">
-                <picture>
-                    <source srcset="images/facebook.webp" type="image/webp" />
-                    <source srcset="images/facebook.png" type="image/png" />
-                    <img src="images/facebook.png" alt="Logo de Facebook" />
-                </picture>
+                <img src="images/facebook.webp" alt="Logo de Facebook" />
             </a>
         </li>
     </ul>
