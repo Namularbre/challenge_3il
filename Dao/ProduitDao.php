@@ -1,6 +1,6 @@
 ﻿<?php
 
-require_once ('../metier/DBConnector.php');
+require_once(__DIR__ . "/../metier/DBConnector.php");
 /**
  * Gestionnaire de la classe Produit
  */
