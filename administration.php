@@ -19,45 +19,12 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 </head>
 
 <body>
-<!--*************** MENU ***************-->
-<nav class="navbar">
-	<li class="toggle">
-		<ul class ="toggle-item"><i class="fa fa-bars menu" aria-hidden="true"> </i></ul>
-	</li>
-   <ul class="nav-links">
-      	<li class="nav-item"><a href="index.php">ACCUEIL</a></li>
-      	<li class="nav-item"><a href="produits.php">LES PRODUITS</a></li>
-	  	<li class="nav-item"><a href="video.php">VIDEO</a></li>
-		<li class="nav-item"><a href="contact.php">NOUS CONTACTER</a></li>
-<?php 
-	if (isset($_SESSION['id'])) {	
-		echo "<li class='nav-item'><a href='administration.php'>ADMINISTRATION</a></li>";
-	}
-	if(isset($_SESSION['id'])) {
-		echo "<li class='nav-item'><a href='deconnexion.php'>DECONNEXION</a></li>";
-	}else{
-		echo "<li class='nav-item'><a href='connexion.php'>CONNEXION</a></li>";
-	}
-?>
-    </ul>
+	
+	<!--*************** NAV ***************-->
+	<?php
+		require_once("view/nav.php");
+	?>
 
-	<img src="./images/scierie.gif" style="width:70px; margin:5px;">
-</nav>
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-	$(document).ready(function(){
-
-		$('.menu').click(function(){
-			
-			$('ul').toggleClass('active');
-		})
-	})
-
-</script> 
-<!--*************** END MENU ***************-->
 	<!-- Ajout d'un produit -->
 	<div class="row">
 	<div class="containerAjoutProduit col-90">
@@ -192,16 +159,13 @@ if ((!(isset($_SESSION['id'])) || empty($_SESSION['id'])) && $_SESSION['role'] !
 			</div>
 		    </form>
 	</div>
-<!--*************** PIED DE PAGE ***************-->
-<footer id="footer">
-<ul class="footer-links">
-    <li class="footer-item">©Projet 3iL</li>
-    <li class="footer-item"><a href="#" target="_blank"><img id="logo" src="images/facebook.png"></a></li>
-    <li class="footer-item">Site test</li>
-<ul/>
-</footer>
-<!--*************** PIED DE PAGE ***************-->
-	
+
+	<!--*************** PIED DE PAGE ***************-->
+	<?php
+		require_once("view/footer.php");
+	?>
+
+	<!--*************** SCRIPT ***************-->
 	<script src="scripts/initSelectModifProduit.js"></script>
 	<script src="scripts/initSelectModifAccueil.js"></script>
 	<script src="scripts/initSelectSuprProduit.js"></script>
